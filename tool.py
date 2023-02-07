@@ -50,7 +50,7 @@ def main():
     parser.add_argument(dest = "function_list", nargs='+', default=[str], help="List of function names to compare to package name")
     parser.add_argument("-p", "--package",dest = "package_name", help="The Package Name to compare function list too", required=True)
     parser.add_argument("-m", "--model",dest = "input_model", help="The choosen input model; w2v or fast", required=True)
-    parser.add_argument("-f", "--model-file",dest = "model_file", default="none", help="(Optional) Model file to load", required=False)
+    parser.add_argument("-f", "--model-file",dest = "model_file", default="none", help="(Optional) Model file to load", required=True)
     args = parser.parse_args()
 
     # check against model
