@@ -1,5 +1,5 @@
-// modelHandler package
-package modelHandler
+// Package pythonrunner provides pythonrunner
+package pythonrunner
 
 import (
 	"os/exec"
