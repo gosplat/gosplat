@@ -1,9 +1,9 @@
 #!/usr/local/bin/python
 import argparse
-import pandas as pd
+import json
 from gensim.models.fasttext import load_facebook_model
 
-from .model_compare import *
+from model_compare import *
 
 
 def main():
@@ -14,13 +14,16 @@ def main():
     parser.add_argument("-p", "--package", dest = "package_name", help="The Package Name to compare function list too", required=False)
     parser.add_argument("-j", "--json", dest = "project_json", default="none", help="JSON of all functions and packages (To be used by go tool.)", required=False)
     args = parser.parse_args()
+    # assign project_json arg variable
+    project_json: str = args.project_json
 
     # load model
     model = load_facebook_model(args.model_file)
     
     if args.project_json != "none":
-        project_data = pd.read_json(args.project_json)
+        project_data = json.loads(project_json)
         print(project_data)
+        print(project_data["context"])
         return
         # todo
 
