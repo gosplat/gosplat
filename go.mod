@@ -1,3 +1,3 @@
-module github.com/Gabriel-Ivarsson/code2vec-demo/tool
+module github.com/NoahHakansson/go-slat
 
 go 1.19
