@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/NoahHakansson/go-slat/src/ToolParser"
+	"github.com/NoahHakansson/go-slat/src/toolParser"
 )
 
 func main() {
