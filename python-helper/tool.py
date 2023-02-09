@@ -21,11 +21,11 @@ def main():
     model = load_facebook_model(args.model_file)
     
     if args.project_json != "none":
+        # TODO: parse object and compare each packages functions against the package name
         project_data = json.loads(project_json)
         print(project_data)
         print(project_data["context"])
         return
-        # todo
 
     # compare against model
     compare_function_list(args.package_name, args.function_list, model)
