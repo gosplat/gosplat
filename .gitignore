@@ -20,3 +20,7 @@ __pycache__/
 
 # Go workspace file
 go.work
+
+# extra
+# bin files for model file
+*.bin
