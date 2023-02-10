@@ -15,6 +15,7 @@ def main():
     parser.add_argument("-j", "--json", dest = "project_json", default="none", help="JSON of all functions and packages (To be used by go tool.)", required=False)
     args = parser.parse_args()
     # assign project_json arg variable
+    print(args.project_json)
     project_json: str = args.project_json
 
     # load model
@@ -23,8 +24,7 @@ def main():
     if args.project_json != "none":
         # TODO: parse object and compare each packages functions against the package name
         project_data = json.loads(project_json)
-        print(project_data)
-        print(project_data["context"])
+        print(green(project_json))
         return
 
     # compare against model
