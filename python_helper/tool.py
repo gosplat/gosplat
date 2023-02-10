@@ -24,12 +24,13 @@ def main():
     if args.project_json != "none":
         # TODO: parse object and compare each packages functions against the package name
         project_data = json.loads(project_json)
-        print(green(project_json))
+        print(green(project_data))
+        print(red(project_data))
+        print(blue(project_data))
         return
 
     # compare against model
     compare_function_list(args.package_name, args.function_list, model)
-
 
 
 if __name__ == "__main__":

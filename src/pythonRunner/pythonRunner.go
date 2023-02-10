@@ -2,14 +2,22 @@
 package pythonrunner
 
 import (
+	"fmt"
 	"os/exec"
 )
 
-// ExecModel function
-func ExecModel(jsonData string) error {
-	model := exec.Command("compare.py", "-j", jsonData)
-	if err := model.Run(); err != nil {
+func surroundInQuotes(jsonData string) string {
+	return fmt.Sprintf("'%s'", jsonData)
+}
+
+// ExecPythonModel function
+func ExecPythonModel(path string, modelFile string, jsonData string) error {
+	cmd := exec.Command("python", path, modelFile, "-j", surroundInQuotes(jsonData))
+	fmt.Printf("\nexec cmd: %s\n\n", cmd.String())
+	out, err := cmd.Output()
+	if err != nil {
 		return err
 	}
+	fmt.Printf("Python output:\n%s", out)
 	return nil
 }
