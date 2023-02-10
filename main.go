@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	pythonrunner "github.com/NoahHakansson/go-slat/src/pythonRunner"
+	"github.com/NoahHakansson/go-slat/src/pythonRunner"
 	"github.com/NoahHakansson/go-slat/src/toolParser"
 )
 
@@ -19,7 +19,7 @@ func main() {
 	}
 	// TODO: call python fastTest model with jsonData string.
 	fmt.Println("FROM GO PROGRAM: ", jsonData)
-	err = pythonrunner.ExecPythonModel("test.py", "./fast-fb-model.bin", jsonData)
+	err = pythonrunner.ExecPythonModel("./python_helper/tool.py", "./fast-fb-model.bin", jsonData)
 	if err != nil {
 		println("ExecPythonModel; Error;", err.Error())
 	}
