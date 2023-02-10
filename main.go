@@ -16,6 +16,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	// TODO: call python fastTest model with jsonData string.
 	fmt.Print(jsonData)
 	return
 }
