@@ -45,9 +45,15 @@ def main():
     if args.project_json != "none":
         # TODO: parse object and compare each packages functions against the package name
         project_data = json.loads(project_json)
-        print(green(project_data))
-        print(red(project_data))
         print(blue(project_data))
+        # add package names to string list
+        package_names = [str]
+        for package in project_data:
+            package_names.append(package)
+            print(blue(package))
+            print(green(project_data[package]))
+            # compare_function_list(package, package[package], model)
+
         return
 
     # compare against model
