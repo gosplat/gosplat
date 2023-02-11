@@ -2,7 +2,7 @@
 package pythonrunner
 
 import (
-	"fmt"
+	// "fmt"
 	"os"
 	"os/exec"
 )
@@ -10,17 +10,12 @@ import (
 // ExecPythonModel function
 func ExecPythonModel(path string, modelFile string, jsonData string) error {
 	cmd := exec.Command("python", path, modelFile, "-j", jsonData)
-	fmt.Printf("\nExecuted command: %s\n\n", cmd.String())
+	// fmt.Printf("\nExecuted command: %s\n\n", cmd.String())
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
 	if err != nil {
 		return err
 	}
-	// cmd.Wait()
-	// if err != nil {
-	// 	return err
-	// }
-	// fmt.Println("Python output:", string(out))
 	return nil
 }
