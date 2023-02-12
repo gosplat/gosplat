@@ -26,7 +26,13 @@ func parseCode(newPackage *projectPackage, node *ast.File) {
 	ast.Inspect(node, func(n ast.Node) bool {
 		switch x := n.(type) {
 		case *ast.FuncDecl:
-			file.Functions = append(file.Functions, sanitizeName(x.Name.Name))
+			funcName := sanitizeName(x.Name.Name)
+			if strings.HasPrefix(funcName, "test") {
+				// early return if function name starts with test,
+				// we dont want to ignore all test functions.
+				return true
+			}
+			file.Functions = append(file.Functions, funcName)
 		}
 
 		return true

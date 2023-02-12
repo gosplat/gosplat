@@ -9,6 +9,7 @@ import (
 	"go/token"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func getGoFileNode(path string) (*ast.File, error) {
@@ -26,12 +27,17 @@ func getGoFileNode(path string) (*ast.File, error) {
 
 // ParseDir function
 //
-// Parses given directory and
+// Parses given directory and add functions and files to package map.
 func ParseDir(dir string) error {
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		node, err := getGoFileNode(path)
 		if node != nil {
 			packageName := getPackageName(node)
+			if strings.HasPrefix(packageName, "test") {
+				// early return and skip package if it starts with `test`
+				// we want to ignore all test packages.
+				return err
+			}
 			packageInfo := getMapPackage(packageName)
 			newFile := packageFiles{
 				Name: filepath.Base(path),
