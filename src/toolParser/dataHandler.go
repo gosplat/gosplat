@@ -6,6 +6,8 @@ package toolParser
 import (
 	"encoding/json"
 	"go/ast"
+	"regexp"
+	"strings"
 )
 
 type packageFiles struct {
@@ -19,8 +21,14 @@ type projectPackage struct {
 
 var packages = make(map[string]*projectPackage)
 
+func sanitizeName(name string) string {
+	name = strings.ToLower(name)
+	name = regexp.MustCompile(`[^a-zA-Z0-9 ]+`).ReplaceAllString(name, "")
+	return name
+}
+
 func getPackageName(node *ast.File) string {
-	return node.Name.Name
+	return sanitizeName(node.Name.Name)
 }
 
 func getMapPackage(key string) *projectPackage {

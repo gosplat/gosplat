@@ -5,7 +5,6 @@ package toolParser
 
 import (
 	"go/ast"
-	"regexp"
 	"strings"
 )
 
@@ -13,12 +12,6 @@ var (
 	funcType    = "funcDecl"
 	packageType = "package"
 )
-
-func sanitizeName(name string) string {
-	name = strings.ToLower(name)
-	name = regexp.MustCompile(`[^a-zA-Z0-9 ]+`).ReplaceAllString(name, "")
-	return name
-}
 
 func parseCode(newPackage *projectPackage, node *ast.File) {
 	file := newPackage.Files[len(newPackage.Files)-1]
