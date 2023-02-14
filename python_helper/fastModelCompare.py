@@ -22,31 +22,13 @@ def main():
     
     if args.project_json != "none":
         ## parse data into dictionary
-        project_data:dict[str,Any] = json.loads(project_json)
-        print(blue(project_data))
-        # package_functions: Dictionary with key package name, containing all package functions.
-        package_functions:dict[str,list[str]] = {}
-        # get a packages functions and add them to dictionary.
-        for package in project_data:
-            # print(blue(package))
-            # print(green(project_data[package]))
-            package_files = project_data[package]["package_files"]
-            # print(red(package_files))
-            function_list:list[str] = []
-            for file in package_files:
-                functions:list[str] = file["functions"]
-                if functions:
-                    function_list.extend(functions)
-            # print(yellow(function_list))
-            # add function_list to current package in dictionary.
-            package_functions[package.lower()] = function_list
-
-            # print(red(project_data[package]["package_files"]))
-        
+        project_packages:dict[str,dict[str,list[str]]] = json.loads(project_json)
+        print(blue(project_packages))
         ## Present Results
-        # compare function names to the package name they exists in.
-        for package_name in package_functions:
-            compare_package_function_list_distance(package_name, package_functions[package_name], model)
+        # Compare function names vector distance to the package they exists in.
+        # Also find best matching package for each function to see if any function should be moved.
+        for package_name in project_packages:
+            compare_package_function_list_distance(package_name, project_packages[package_name]["functions"], model)
         # test
         compare_package_function_list_distance("routes", ["getuser", "execpythonmodel"], model)
 
