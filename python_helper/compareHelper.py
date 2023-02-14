@@ -2,7 +2,10 @@
 from gensim.models import FastText
 from colors import green, red, blue, yellow
 
-def compare_package_function_list_distance(package_name: str, function_list: list[str], model: FastText):
+
+def compare_package_function_list_distance(
+    package_name: str, function_list: list[str], model: FastText
+):
     """
     Checks a list of functions against a package name
     and compares the distance between each function and the package name.
@@ -16,10 +19,15 @@ def compare_package_function_list_distance(package_name: str, function_list: lis
 
     print(blue(f"Results for package '{package_name}':"))
     for function in function_list:
-        print(yellow(f"\tFunction '{function}':"), green(model.wv.distance(package_name, function)))
+        print(
+            yellow(f"\tFunction '{function}':"),
+            green(model.wv.distance(package_name, function)),
+        )
 
 
-def list_best_matching_package(function_list: list[str], model: FastText):
+def list_best_matching_package(
+    function_name: str, package_list: list[str], model: FastText
+):
     """
     Takes a function_name and package_list and
     checks for the best matching package for the function,
@@ -36,7 +44,7 @@ def list_most_similar(function_list: list[str], model: FastText):
     prints list of most similar word.
     """
     for function in function_list:
-        print(blue(f"Results for words found similar to \"{function}\""))
+        print(blue(f'Results for words found similar to "{function}"'))
         print(green(model.wv.most_similar(function)))
 
 
@@ -49,4 +57,3 @@ def find_non_matching_function(function_list: list[str], model: FastText):
     """
     print(blue("Results for word that least fits in given word list"))
     print(red(model.wv.doesnt_match(function_list)))
-
