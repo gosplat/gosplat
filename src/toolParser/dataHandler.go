@@ -10,13 +10,8 @@ import (
 	"strings"
 )
 
-type packageFiles struct {
-	Name      string   `json:"filename"`
-	Functions []string `json:"functions"`
-}
-
 type projectPackage struct {
-	Files []*packageFiles `json:"package_files"`
+	Functions []string `json:"functions"`
 }
 
 var packages = make(map[string]*projectPackage)
