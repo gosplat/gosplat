@@ -1,7 +1,6 @@
 #!/usr/local/bin/python
 import argparse
 import json
-from typing import Any
 from colors import green, red, blue, yellow
 from gensim.models.fasttext import load_facebook_model
 from compareHelper import compare_package_function_list_distance
@@ -26,9 +25,11 @@ def main():
         print(blue(project_packages))
         ## Present Results
         # Compare function names vector distance to the package they exists in.
-        # Also find best matching package for each function to see if any function should be moved.
         for package_name in project_packages:
             compare_package_function_list_distance(package_name, project_packages[package_name]["functions"], model)
+        # Find best matching package for each function to see if any function should be moved.
+        for package_name in project_packages:
+            # todo best matching package
         # test
         compare_package_function_list_distance("routes", ["getuser", "execpythonmodel"], model)
 
