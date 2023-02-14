@@ -13,9 +13,8 @@ var (
 	packageType = "package"
 )
 
+// Takes a ast node, finds and adds package functions to provided projectPackage struct
 func parseCode(newPackage *projectPackage, node *ast.File) {
-	file := newPackage.Files[len(newPackage.Files)-1]
-
 	ast.Inspect(node, func(n ast.Node) bool {
 		switch x := n.(type) {
 		case *ast.FuncDecl:
@@ -25,7 +24,7 @@ func parseCode(newPackage *projectPackage, node *ast.File) {
 				// we dont want to ignore all test functions.
 				return true
 			}
-			file.Functions = append(file.Functions, funcName)
+			newPackage.Functions = append(newPackage.Functions, funcName)
 		}
 
 		return true

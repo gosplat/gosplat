@@ -10,13 +10,9 @@ import (
 	"strings"
 )
 
-type packageFiles struct {
-	Name      string   `json:"filename"`
-	Functions []string `json:"functions"`
-}
-
 type projectPackage struct {
-	Files []*packageFiles `json:"package_files"`
+	Name      string   `json:"package_name"`
+	Functions []string `json:"functions"`
 }
 
 var packages = make(map[string]*projectPackage)
@@ -35,7 +31,9 @@ func getMapPackage(key string) *projectPackage {
 	if val, ok := packages[key]; ok {
 		return val
 	}
-	newPackage := projectPackage{}
+	newPackage := projectPackage{
+		Name: key,
+	}
 	packages[key] = &newPackage
 	return &newPackage
 }

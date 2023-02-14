@@ -27,7 +27,7 @@ func getGoFileNode(path string) (*ast.File, error) {
 
 // ParseDir function
 //
-// Parses given directory and add functions and files to package map.
+// Parses given directory and add package names and functions and projectPackage struct map.
 func ParseDir(dir string) error {
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		node, err := getGoFileNode(path)
@@ -39,10 +39,7 @@ func ParseDir(dir string) error {
 				return err
 			}
 			packageInfo := getMapPackage(packageName)
-			newFile := packageFiles{
-				Name: filepath.Base(path),
-			}
-			packageInfo.Files = append(packageInfo.Files, &newFile)
+			// find and add package functions.
 			parseCode(packageInfo, node)
 
 		}
