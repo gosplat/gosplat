@@ -11,7 +11,6 @@ import (
 )
 
 type projectPackage struct {
-	Name      string   `json:"package_name"`
 	Functions []string `json:"functions"`
 }
 
@@ -31,9 +30,7 @@ func getMapPackage(key string) *projectPackage {
 	if val, ok := packages[key]; ok {
 		return val
 	}
-	newPackage := projectPackage{
-		Name: key,
-	}
+	newPackage := projectPackage{}
 	packages[key] = &newPackage
 	return &newPackage
 }
