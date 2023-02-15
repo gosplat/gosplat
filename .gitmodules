@@ -1,0 +1,3 @@
+[submodule "go-slat-dev-training-data"]
+	path = go-slat-dev-training-data
+	url = git@github.com:Gabriel-Ivarsson/go-slat-dev-training-data.git
