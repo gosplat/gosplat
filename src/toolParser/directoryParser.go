@@ -33,7 +33,7 @@ func ParseDir(dir string) error {
 		node, err := getGoFileNode(path)
 		if node != nil {
 			packageName := getPackageName(node)
-			if strings.HasPrefix(packageName, "test") {
+			if strings.HasPrefix(strings.ToLower(packageName), "test") {
 				// early return and skip package if it starts with `test`
 				// we want to ignore all test packages.
 				return err

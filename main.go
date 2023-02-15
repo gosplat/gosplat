@@ -17,7 +17,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	// TODO: call python fastTest model with jsonData string.
 	err = pythonrunner.ExecPythonModel("./python_helper/fastModelCompare.py", "./fast-fb-model.bin", jsonData)
 	if err != nil {
 		println("ExecPythonModel; Error;", err.Error())
