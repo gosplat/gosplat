@@ -1,6 +1,17 @@
 # Provides helper functions for doing comparisons using the provided model.
 from colors import blue, green, red, yellow
 from gensim.models import FastText
+import re
+
+
+def sanitize_name(name: str) -> str:
+    """
+    Takes a string and sanitizes it to conform to camelCase naming convention
+    and then make everything lowercase.
+
+    Returns sanitized string.
+    """
+    return re.sub("[^a-zA-Z0-9 ]+", "", name).lower()
 
 
 def compare_package_function_list_distance(package_name: str, function_list: list[str], model: FastText):
@@ -19,7 +30,8 @@ def compare_package_function_list_distance(package_name: str, function_list: lis
     for function in function_list:
         print(
             yellow(f"\tFunction '{function}':"),
-            green(model.wv.distance(package_name.lower(), function.lower())),
+            green(model.wv.distance(sanitize_name(
+                package_name), sanitize_name(function))),
         )
 
 
@@ -50,7 +62,7 @@ def find_best_matching_package(function_name: str, package_list: list[str], mode
     distances: dict[float, str] = {}
     for package_name in package_list:
         dist: float = model.wv.distance(
-            package_name.lower(), function_name.lower())
+            sanitize_name(package_name), sanitize_name(function_name))
         distances[dist] = package_name
 
     dist_list: list[float] = list(distances.keys())
@@ -68,7 +80,7 @@ def list_most_similar(function_list: list[str], model: FastText):
     """
     for function in function_list:
         print(blue(f'Results for words found similar to "{function}"'))
-        print(green(model.wv.most_similar(function.lower())))
+        print(green(model.wv.most_similar(sanitize_name(function))))
 
 
 def find_non_matching_function(function_list: list[str], model: FastText):
@@ -79,5 +91,5 @@ def find_non_matching_function(function_list: list[str], model: FastText):
     Prints the name of that function.
     """
     print(blue("Results for word that least fits in given word list"))
-    function_list = [function.lower() for function in function_list]
+    function_list = [sanitize_name(function) for function in function_list]
     print(red(model.wv.doesnt_match(function_list)))

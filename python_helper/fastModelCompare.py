@@ -2,9 +2,9 @@
 import argparse
 import json
 
-from colors import blue, green, red, yellow
+from colors import blue
 from compareHelper import (
-    compare_package_function_list_distance, find_non_matching_function, list_best_matching_package)
+    compare_package_function_list_distance, list_best_matching_package)
 from gensim.models.fasttext import load_facebook_model
 
 
