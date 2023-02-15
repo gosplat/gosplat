@@ -4,4 +4,5 @@ build:
 updateDependencies:
 	git submodule update --init --recursive
 
-install: updateDependencies build
+install: 
+	bash install.sh

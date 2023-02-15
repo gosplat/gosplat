@@ -9,6 +9,11 @@ import (
 	"github.com/NoahHakansson/gopslat/src/toolParser"
 )
 
+const (
+	pythonPath = "$HOME/.local/share/gosplat/src/python_helper/fastModelCompare.py"
+	modelBin   = "$HOME/.local/share/gosplat/fast-fb-model.bin"
+)
+
 func main() {
 	dir := os.Args[1]
 	toolParser.ParseDir(dir)
@@ -17,7 +22,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	err = pythonrunner.ExecPythonModel("./python_helper/fastModelCompare.py", "./fast-fb-model.bin", jsonData)
+	err = pythonrunner.ExecPythonModel(pythonPath, modelBin, jsonData)
 	if err != nil {
 		println("ExecPythonModel; Error;", err.Error())
 	}
