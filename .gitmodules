@@ -1,3 +1,6 @@
 [submodule "go-slat-dev-training-data"]
 	path = go-slat-dev-training-data
 	url = git@github.com:Gabriel-Ivarsson/go-slat-dev-training-data.git
+[submodule "go-slat-models"]
+	path = go-slat-models
+	url = git@github.com:Gabriel-Ivarsson/go-slat-models.git
