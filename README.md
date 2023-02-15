@@ -1,2 +1,2 @@
-# go-slat (Go-Structure-Language-model-Analysis-Tool)
+# gopslat (Go Package Structure Language-model Analysis Tool)
 
