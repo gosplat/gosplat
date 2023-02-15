@@ -3,8 +3,8 @@ import argparse
 import json
 
 from colors import blue, green, red, yellow
-from compareHelper import (compare_package_function_list_distance,
-                           find_best_matching_package, list_best_matching_package)
+from compareHelper import (
+    compare_package_function_list_distance, find_non_matching_function, list_best_matching_package)
 from gensim.models.fasttext import load_facebook_model
 
 
@@ -68,7 +68,7 @@ def main():
 
         # test
         compare_package_function_list_distance(
-            "routes", ["getuser", "execpythonmodel"], model)
+            "pythonrunner", ["getuser", "ExecPythonModel"], model)
 
         return
 
