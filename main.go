@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/NoahHakansson/go-slat/src/pythonRunner"
-	"github.com/NoahHakansson/go-slat/src/toolParser"
+	"github.com/NoahHakansson/gopslat/src/pythonRunner"
+	"github.com/NoahHakansson/gopslat/src/toolParser"
 )
 
 func main() {
