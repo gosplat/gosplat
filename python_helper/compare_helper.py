@@ -1,4 +1,5 @@
 # Provides helper functions for doing comparisons using the provided model.
+from numbers import Number
 from colors import blue, green, red, yellow
 from gensim.models import FastText
 import re
@@ -13,6 +14,29 @@ def sanitize_name(name: str) -> str:
     """
     return re.sub("[^a-zA-Z0-9 ]+", "", name).lower()
 
+def calculateAverageDistance(distance_list: list[float]):
+    size = len(distance_list)
+    total = 0
+    for x in distance_list:
+        total += x
+    return total/size
+
+def mitigate_FPs(function_name: str, package_list: list[str], old_package_name: str, model: FastText, control_value: float):
+    """
+    Checks for if the function's match is less than the average deviation between function an all packages
+    helps to mitigate false positives, will also decrease amount of true positives
+
+    returns false if it is in a package with average deviation, true if it's in an outlier.
+    """
+    distance_list = []
+    for package in package_list:
+        distance = model.wv.distance(sanitize_name(package), sanitize_name(function_name))
+        distance_list.append(distance)
+    average_distance = calculateAverageDistance(distance_list)
+    distance = model.wv.distance(sanitize_name(old_package_name), sanitize_name(function_name)) 
+    if distance <= average_distance * control_value:
+        return  True
+    return False
 
 def compare_package_function_list_distance(package_name: str, function_list: list[str], model: FastText):
     """
@@ -48,8 +72,9 @@ def list_best_matching_package(function_name: str, package_list: list[str], old_
         print(
             green(f"Function: {function_name} already in best matching package '{old_package_name}'!"))
     else:
-        print(
-            red(f"Function: '{function_name}' in '{old_package_name}' package, is NOT in the best matching package, consider moving to '{best_match_package}' package!"))
+        if mitigate_FPs(function_name, package_list, old_package_name, model, 1) == False:
+            print(
+                red(f"Function: '{function_name}' in '{old_package_name}' package, is NOT in the best matching package, consider moving to '{best_match_package}' package!"))
 
 
 def find_best_matching_package(function_name: str, package_list: list[str], model: FastText) -> str:
