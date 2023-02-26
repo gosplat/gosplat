@@ -24,7 +24,7 @@ def calculateAverageDistance(distance_list: list[float]):
 def mitigate_FPs(function_name: str, package_list: list[str], old_package_name: str, model: FastText, control_value: float):
     """
     Checks for if the function's match is less than the average deviation between function an all packages
-    helps to mitigate false positives, will also decrease amount of true positives
+    helps to mitigate false positives, will also decrease amount of true positives. This can be steered with control value
 
     returns false if it is in a package with average deviation, true if it's in an outlier.
     """
