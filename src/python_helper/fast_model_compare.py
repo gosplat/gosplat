@@ -3,8 +3,7 @@ import argparse
 import json
 
 from colors import blue
-from compareHelper import (
-    compare_package_function_list_distance, list_best_matching_package)
+from compare_helper import GosplatSolver
 from gensim.models.fasttext import load_facebook_model
 
 
@@ -49,33 +48,13 @@ def main():
         # parse data into dictionary
         project_packages: dict[str, dict[str, list[str]]
                                ] = json.loads(project_json)
-        print(blue(project_packages))
-        # Present Results
-        # Compare function names vector distance to the package they exists in.
-        for package_name in project_packages:
-            compare_package_function_list_distance(
-                package_name, project_packages[package_name]["functions"], model
-            )
-        # Find best matching package for each function
-        # to see if any function should be moved.
-        package_list: list[str] = list(project_packages.keys())
-        for package_name in project_packages:
-            # list best matching package
-            funcs = project_packages[package_name]["functions"]
-            for function_name in funcs or []:
-                list_best_matching_package(
-                    function_name, package_list, package_name, model)
-
-        # test
-        compare_package_function_list_distance(
-            "pythonrunner", ["getuser", "ExecPythonModel"], model)
-
+        gosplatSolver = GosplatSolver()
+        gosplatSolver.init(project_packages, model)
+        for package in project_packages:
+            functions = project_packages[package]["functions"]
+            for function in functions:
+                gosplatSolver.check_function(function, package)
         return
-
-    # compare against model
-    compare_package_function_list_distance(
-        args.package_name, args.function_list, model)
-
 
 if __name__ == "__main__":
     main()
