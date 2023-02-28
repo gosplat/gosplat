@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	pythonPath = "$HOME/.local/share/gosplat/src/python_helper/fastModelCompare.py"
-	modelBin   = "$HOME/.local/share/gosplat/fast-fb-model.bin"
+	pythonPath = "/home/gabriel/.local/share/gosplat/src/python_helper/fast_model_compare.py"
+	modelBin   = "/home/gabriel/.local/share/gosplat/fast-fb-model.bin"
 )
 
 func main() {
