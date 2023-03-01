@@ -1,6 +1,5 @@
 # Provides helper functions for doing comparisons using the provided model.
-from numbers import Number
-from colors import blue, green, red, yellow
+from colors import blue, green, red
 from gensim.models import FastText
 import re
 

@@ -2,10 +2,8 @@
 import argparse
 import json
 
-from colors import blue
 from compare_helper import GosplatSolver
 from gensim.models.fasttext import load_facebook_model
-
 
 def main():
     # command line arguments

@@ -5,13 +5,20 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/NoahHakansson/gopslat/src/pythonRunner"
-	"github.com/NoahHakansson/gopslat/src/toolParser"
+	"github.com/NoahHakansson/gosplat/src/pythonRunner"
+	"github.com/NoahHakansson/gosplat/src/toolParser"
 )
 
+<<<<<<< HEAD
 const (
 	pythonPath = "/home/gabriel/.local/share/gosplat/src/python_helper/fast_model_compare.py"
 	modelBin   = "/home/gabriel/.local/share/gosplat/fast-fb-model.bin"
+=======
+
+var (
+	pythonPath = os.Getenv("HOME") + "/.local/share/gosplat/src/python_helper/fast_model_compare.py"
+	modelBin   = os.Getenv("HOME") + "/.local/share/gosplat/fast-fb-model.bin"
+>>>>>>> e6ee66556e2312f2b29179e6b578cd526984f31f
 )
 
 func main() {
