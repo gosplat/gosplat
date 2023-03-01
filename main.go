@@ -9,7 +9,6 @@ import (
 	"github.com/NoahHakansson/gosplat/src/toolParser"
 )
 
-
 var (
 	pythonPath = os.Getenv("HOME") + "/.local/share/gosplat/src/python_helper/fast_model_compare.py"
 	modelBin   = os.Getenv("HOME") + "/.local/share/gosplat/fast-fb-model.bin"

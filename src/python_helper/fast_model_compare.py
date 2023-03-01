@@ -1,18 +1,8 @@
 #!/usr/local/bin/python
 import argparse
 import json
-
-from colors import blue
 from compare_helper import GosplatSolver
 from gensim.models.fasttext import load_facebook_model
-
-def getFuncList(packages):
-    function_list: list[str] = []
-    for package in packages:
-        funcs = packages[package]["functions"]
-        for function in funcs:
-           function_list.append(function) 
-    return function_list
 
 def main():
     # command line arguments
@@ -56,12 +46,7 @@ def main():
         project_packages: dict[str, dict[str, list[str]]
                                ] = json.loads(project_json)
         gosplatSolver = GosplatSolver()
-        # Find best matching package for each function
-        # to see if any function should be moved.
-
-        package_list: list[str] = list(project_packages.keys())
-        function_list: list[str] = getFuncList(project_packages)
-        gosplatSolver.init(package_list, function_list, model)
+        gosplatSolver.init(project_packages, model)
         for package in project_packages:
             functions = project_packages[package]["functions"]
             for function in functions:

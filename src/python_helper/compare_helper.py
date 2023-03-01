@@ -1,6 +1,5 @@
 # Provides helper functions for doing comparisons using the provided model.
-from numbers import Number
-from colors import blue, green, red, yellow
+from colors import blue, green, red
 from gensim.models import FastText
 import re
 
@@ -9,22 +8,30 @@ class GosplatSolver:
     model: FastText
     package_list: list[str]
     function_list: list[str]
-    def init(self, package_list_p: list[str], function_list_p: list [str], model_p: FastText):
-        self.package_list = package_list_p
-        self.function_list = function_list_p
+    def init(self, packages, model_p: FastText):
         self.model = model_p
+        
+        self.getPackageList(packages)
+        self.getFunctionList(packages)
+        self.calculateAverageDistance(packages)
 
-        self.calculateAverageDistance()
+    def getFunctionList(self, packages):
+        for package in packages:
+            funcs = packages[package]["functions"]
+            for function in funcs:
+               self.function_list.append(function) 
 
-    def calculateAverageDistance(self):
-        total = 0.0
+    def getPackageList(self, packages):
+        self.package_list = list(packages.keys())
+
+    def calculateAverageDistance(self, packages):
+        total = 0
         comparisons = 0
-        for function in self.function_list:
-            for package in self.package_list:
-                total += self.model.wv.distance(self.sanitize_name(function), self.sanitize_name(package))
+        for package in packages:
+            funcs = packages[package]["functions"]
+            for function in funcs:
+                total += self.model.wv.distance(package, function)
                 comparisons += 1
-        if comparisons == 0:
-            return
         self.averageDistance = total/comparisons
 
     def sanitize_name(self, name: str) -> str:
