@@ -3,14 +3,16 @@ from colors import blue, green, red
 from gensim.models import FastText
 import re
 
+
 class GosplatSolver:
     averageDistance: float
     model: FastText
     package_list: list[str]
     function_list: list[str]
+
     def init(self, packages, model_p: FastText):
         self.model = model_p
-        
+
         self.getPackageList(packages)
         self.getFunctionList(packages)
         self.calculateAverageDistance(packages)
@@ -19,7 +21,7 @@ class GosplatSolver:
         for package in packages:
             funcs = packages[package]["functions"]
             for function in funcs:
-               self.function_list.append(function) 
+                self.function_list.append(function)
 
     def getPackageList(self, packages):
         self.package_list = list(packages.keys())
@@ -38,7 +40,7 @@ class GosplatSolver:
         """
         Takes a string and sanitizes it to conform to camelCase naming convention
         and then make everything lowercase.
-    
+
         Returns sanitized string.
         """
         return re.sub("[^a-zA-Z0-9 ]+", "", name).lower()
@@ -59,7 +61,7 @@ class GosplatSolver:
         """
         Takes a function_name and package_list and
         checks for the best matching package for the function,
-    
+
         returns best matching package.
         """
         distances: dict[float, str] = {}
@@ -67,12 +69,12 @@ class GosplatSolver:
             dist: float = self.model.wv.distance(
                 self.sanitize_name(package_name), self.sanitize_name(function_name))
             distances[dist] = package_name
-    
+
         dist_list: list[float] = list(distances.keys())
         smallest_distance: float = min(dist_list)
         best_match: str = distances[smallest_distance]
         return best_match
-    
+
     def check_function(self, function_name: str, old_package_name: str):
         """
         Takes a function_name, package_list, old_package_name and
@@ -94,21 +96,21 @@ class GosplatSolver:
         """
         Takes function_list and for each function
         checks for most similar words in training data,
-    
+
         prints list of most similar word.
         """
         for function in self.function_list:
             print(blue(f'Results for words found similar to "{function}"'))
             print(green(self.model.wv.most_similar(self.sanitize_name(function))))
-    
 
     def find_non_matching_function(self):
         """
         Takes function_list
         Finds function in list that matches the least with the other functions.
-    
+
         Prints the name of that function.
         """
         print(blue("Results for word that least fits in given word list"))
-        function_list = [self.sanitize_name(function) for function in self.function_list]
+        function_list = [self.sanitize_name(
+            function) for function in self.function_list]
         print(red(self.model.wv.doesnt_match(function_list)))

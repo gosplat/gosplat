@@ -4,6 +4,7 @@ import json
 from compare_helper import GosplatSolver
 from gensim.models.fasttext import load_facebook_model
 
+
 def main():
     # command line arguments
     parser = argparse.ArgumentParser()
@@ -52,6 +53,7 @@ def main():
             for function in functions:
                 gosplatSolver.check_function(function, package)
         return
+
 
 if __name__ == "__main__":
     main()
