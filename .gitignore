@@ -10,6 +10,8 @@ __pycache__/
 *.dylib
 gosplat
 
+*gosplat-models*
+
 # Test binary, built with `go test -c`
 *.test
 
