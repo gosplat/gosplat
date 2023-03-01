@@ -45,6 +45,8 @@ class GosplatSolver:
 
         Returns sanitized string.
         """
+        if name == 'db':
+            name = 'database'
         return re.sub("[^a-zA-Z0-9 ]+", "", name).lower()
 
     def mitigate_FPs(self, function_name: str, package_name: str, control_value: int):
