@@ -1,7 +1,6 @@
 #!/usr/local/bin/python
 import argparse
 import json
-
 from compare_helper import GosplatSolver
 from gensim.models.fasttext import load_facebook_model
 

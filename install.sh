@@ -3,9 +3,9 @@
 # Install script for gosplat
 #
 # Updating and moving dependencies to $HOME/.local/share/
-# TODO: curl model `.bin` file from somewhere...
-mkdir -p $HOME/.local/share/gosplat
-cp -r ./python_helper $HOME/.local/share/gosplat
+./src/modelGetter/modelGetter
 
+mkdir -p $HOME/.local/share/gosplat
+rsync -av --progress ./* $HOME/.local/share/gosplat --exclude ./.git
 # Building program binary
 go install .
