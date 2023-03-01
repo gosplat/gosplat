@@ -19,7 +19,9 @@ func parseCode(newPackage *projectPackage, node *ast.File) {
 		switch x := n.(type) {
 		case *ast.FuncDecl:
 			funcName := x.Name.Name
-			if strings.HasPrefix(strings.ToLower(funcName), "test") {
+			if strings.Contains(strings.ToLower(funcName), "test") ||
+				strings.Contains(strings.ToLower(funcName), "mock") ||
+				strings.Contains(strings.ToLower(funcName), "fixture") {
 				// early return if function name starts with test,
 				// we dont want to ignore all test functions.
 				return true
