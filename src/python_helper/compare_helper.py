@@ -10,28 +10,30 @@ class GosplatSolver:
     package_list: list[str]
     function_list: list[str]
 
-    def init(self, packages, model_p: FastText):
+    def init(self, packages: dict[str, dict[str, list[str]]], model_p: FastText):
         self.model = model_p
+        self.function_list = []
+        self.package_list = []
 
         self.getPackageList(packages)
         self.getFunctionList(packages)
         self.calculateAverageDistance(packages)
 
-    def getFunctionList(self, packages):
+    def getFunctionList(self, packages: dict[str, dict[str, list[str]]],):
         for package in packages:
             funcs = packages[package]["functions"]
-            for function in funcs:
+            for function in funcs or []:
                 self.function_list.append(function)
 
-    def getPackageList(self, packages):
+    def getPackageList(self, packages: dict[str, dict[str, list[str]]],):
         self.package_list = list(packages.keys())
 
-    def calculateAverageDistance(self, packages):
+    def calculateAverageDistance(self, packages: dict[str, dict[str, list[str]]],):
         total = 0
         comparisons = 0
         for package in packages:
             funcs = packages[package]["functions"]
-            for function in funcs:
+            for function in funcs or []:
                 total += self.model.wv.distance(package, function)
                 comparisons += 1
         self.averageDistance = total/comparisons

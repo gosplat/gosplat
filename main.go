@@ -10,8 +10,10 @@ import (
 )
 
 var (
-	pythonPath = os.Getenv("HOME") + "/.local/share/gosplat/src/python_helper/fast_model_compare.py"
-	modelBin   = os.Getenv("HOME") + "/.local/share/gosplat/fast-fb-model.bin"
+	// pythonPath = os.Getenv("HOME") + "/.local/share/gosplat/src/python_helper/fast_model_compare.py"
+	// modelBin   = os.Getenv("HOME") + "/.local/share/gosplat/fast-fb-model.bin"
+	pythonPath = "src/python_helper/fast_model_compare.py"
+	modelBin   = "fast-fb-model.bin"
 )
 
 func main() {

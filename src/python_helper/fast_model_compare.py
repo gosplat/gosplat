@@ -50,7 +50,7 @@ def main():
         gosplatSolver.init(project_packages, model)
         for package in project_packages:
             functions = project_packages[package]["functions"]
-            for function in functions:
+            for function in functions or []:
                 gosplatSolver.check_function(function, package)
         return
 
