@@ -86,13 +86,10 @@ class GosplatSolver:
         """
         best_match_package: str = self.find_best_matching_package(
             function_name)
-        if best_match_package == old_package_name:
-            print(
-                green(f"Function: {function_name} already in best matching package '{old_package_name}'!"))
-        else:
+        if best_match_package != old_package_name:
             if self.mitigate_FPs(function_name, old_package_name, 1) == False:
                 print(
-                    red(f"Function: '{function_name}' in '{old_package_name}' package, is NOT in the best matching package, consider moving to '{best_match_package}' package!"))
+                    red(f"Function: '{function_name}' in '{old_package_name}' package, may NOT be in the best matching package, consider placing it in '{best_match_package}' or choosing a better name for {old_package_name}!"))
 
     def list_most_similar(self):
         """
