@@ -25,6 +25,11 @@ curl -L -o "$tempfile" "$repo_link" # curl zip to tempfile
 unzip -q "$tempfile" "*.bin"
 echo
 
+# install python dependencies
+echo "Installing python dependencies"; echo
+pip install -q -r "requirements.txt"
+echo "Done installing python dependencies"; echo
+
 # copy model to destination
 echo "-----------------------------"; echo
 echo "Copying model to $model_dest"; echo
