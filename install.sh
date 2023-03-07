@@ -22,7 +22,7 @@ mkdir -p "$HOME/.local/share/gosplat/src" # create directories if they dont exis
 # download model
 echo "Downloading pre-trained model..."; echo
 curl -L -o "$tempfile" "$repo_link" # curl zip to tempfile
-unzip "$tempfile" "*.bin"
+unzip -q "$tempfile" "*.bin"
 echo
 
 # copy model to destination
