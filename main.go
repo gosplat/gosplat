@@ -11,13 +11,17 @@ import (
 
 func printHelp() {
 	fmt.Printf("Gosplat v1\n" +
-		" gosplat --h , prints commands\n" +
+		" gosplat -h/--help , prints this help text\n" +
 		" gosplat [input dir/file] , runs directory against model\n")
 }
 
 func checkForFlags(args []string) uint8 {
+	if len(args) == 1 {
+		printHelp()
+		return earlyReturn
+	}
 	for _, arg := range args {
-		if arg == "--h" {
+		if arg == "-h" || arg == "--help" {
 			printHelp()
 			return earlyReturn
 		}
@@ -36,10 +40,10 @@ const (
 )
 
 func main() {
-	dir := os.Args[1]
 	if checkForFlags(os.Args) == earlyReturn {
 		return
 	}
+	dir := os.Args[1]
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		fmt.Println("Error; Input was not a directory or file")
 		printHelp()
