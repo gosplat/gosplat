@@ -88,8 +88,8 @@ class GosplatSolver:
             function_name)
         if best_match_package != old_package_name:
             if self.mitigate_FPs(function_name, old_package_name, 1) == False:
-                print(
-                    red(f"Function: '{function_name}' in '{old_package_name}' package, may NOT be in the best matching package, consider placing it in '{best_match_package}' or choosing a better name for {old_package_name}!"))
+                print(red("\nerror: "),
+                      f"Function '{function_name}' in '{old_package_name}' package, may not be in the best matching package, consider placing it in '{best_match_package}' or choosing a better name for '{old_package_name}'!")
 
     def list_most_similar(self):
         """
