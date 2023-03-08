@@ -9,7 +9,7 @@ Gosplat uses the FastText model trained on a large number of open-source project
 The FastText model is pre-trained and of course, will not by any means save any data of the projects it's used in. The model is downloaded from a GitLab repo and ready to be used afterwards.
 
 ## Goals of this project
-Gosplat's and our goals are to create a nice, quick and easy way to analyze possible holes in you/your team's file structure. It may give helpful hints which can aid in creating a more maintainable environment for future projects to come!
+Gosplat's and our goals are to create a nice, quick and easy way to analyze possible holes in your/your team's code structure. It may give helpful hints which can aid in creating a more maintainable environment for future projects to come!
 
 ## Install
 ### Dependencies
