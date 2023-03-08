@@ -15,6 +15,7 @@ Gosplat's and our goals are to create a nice, quick and easy way to analyze poss
 ### Dependencies
  - Golang
  - python3
+ - pip (used to download python dependencies)
 ### How to
 Simply run `install.sh` in the repo directory after cloning it and the rest is done for you
 
