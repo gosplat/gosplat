@@ -9,7 +9,7 @@ import (
 
 // ExecPythonModel function
 func ExecPythonModel(path string, modelFile string, jsonData string) error {
-	cmd := exec.Command("python", path, modelFile, "-j", jsonData)
+	cmd := exec.Command("python3", path, modelFile, "-j", jsonData)
 	// fmt.Printf("\nExecuted command: %s\n\n", cmd.String())
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
