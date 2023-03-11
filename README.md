@@ -19,5 +19,11 @@ Gosplat's and our goals are to create a nice, quick and easy way to analyze poss
 ### How to
 Simply run `install.sh` in the repo directory after cloning it and the rest is done for you
 
+## Usage
+To use gosplat simply do:
+```
+gosplat [directory]
+```
+
 # Big thanks to the people working on gensim
  - If you want to check them out you can do so here: https://radimrehurek.com/gensim/
