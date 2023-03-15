@@ -35,10 +35,33 @@ def main():
         help="JSON of all functions and packages (To be used by go tool.)",
         required=False,
     )
+    parser.add_argument(
+        "-a",
+        dest="accuracy",
+        type=int,
+        default=1,
+        help="Accuracy of analysis",
+        required=False
+    )
+    parser.add_argument(
+        "-ns",
+        dest="nameSuggestions",
+        type=int,
+        default=0,
+        help="If name suggestions are on",
+        required=False,
+    )
     args = parser.parse_args()
     # assign project_json arg variable
     project_json: str = args.project_json
 
+    nameSuggestions: int = args.nameSuggestions
+    accuracy: int = args.accuracy
+
+    if nameSuggestions == 1:
+        nameSuggestions = True
+    else:
+        nameSuggestions = False
     # load model
     model = load_facebook_model(args.model_file)
 
@@ -51,7 +74,7 @@ def main():
         for package in project_packages:
             functions = project_packages[package]["functions"]
             for function in functions or []:
-                gosplatSolver.check_function(function, package)
+                gosplatSolver.check_function(function, package, accuracy, nameSuggestions)
         return
 
 

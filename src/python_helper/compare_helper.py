@@ -1,5 +1,5 @@
 # Provides helper functions for doing comparisons using the provided model.
-from colors import blue, green, red
+from colors import blue, green, red, yellow
 from gensim.models import FastText
 import re
 
@@ -77,7 +77,7 @@ class GosplatSolver:
         best_match: str = distances[smallest_distance]
         return best_match
 
-    def check_function(self, function_name: str, old_package_name: str):
+    def check_function(self, function_name: str, old_package_name: str, accuracy: int, nameSuggestions: bool):
         """
         Takes a function_name, package_list, old_package_name and
         checks for the best matching package for the function in package_list
@@ -87,20 +87,25 @@ class GosplatSolver:
         best_match_package: str = self.find_best_matching_package(
             function_name)
         if best_match_package != old_package_name:
-            if self.mitigate_FPs(function_name, old_package_name, 1) == False:
+            if self.mitigate_FPs(function_name, old_package_name, accuracy) == False:
                 print(red("\nerror: "),
                       f"Function '{function_name}' in '{old_package_name}' package, may not be in the best matching package, consider placing it in '{best_match_package}' or choosing a better name for '{old_package_name}'!")
+                if nameSuggestions:
+                    print(green("\nsuggestion:"),
+                          "Top 5 highest matching package-names to function is: ", end="")
+                    self.list_most_similar(function_name)
 
-    def list_most_similar(self):
+    def list_most_similar(self, function):
         """
         Takes function_list and for each function
         checks for most similar words in training data,
 
         prints list of most similar word.
         """
-        for function in self.function_list:
-            print(blue(f'Results for words found similar to "{function}"'))
-            print(green(self.model.wv.most_similar(self.sanitize_name(function))))
+        most_similar = self.model.wv.similar_by_key(self.sanitize_name(function), topn=5)
+        for similar, distance in most_similar:
+            print(similar + "  ", end="")
+        print("\n")
 
     def find_non_matching_function(self):
         """
