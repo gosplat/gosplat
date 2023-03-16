@@ -11,12 +11,6 @@ import (
 	"github.com/NoahHakansson/gosplat/src/toolParser"
 )
 
-func printHelp() {
-	fmt.Printf("Gosplat v1\n" +
-		" gosplat -h/--help , prints this help text\n" +
-		" gosplat [input dir/file] , runs directory against model\n")
-}
-
 var (
 	pythonPath = os.Getenv("HOME") + "/.local/share/gosplat/src/python_helper/fast_model_compare.py"
 	modelBin   = os.Getenv("HOME") + "/.local/share/gosplat/fast-fb-model.bin"
@@ -39,14 +33,14 @@ var (
 
 func checkForFlags() {
 	flag.StringVar(&dir, "d", ".", "Directory; Dir which analysis starts on")
-	flag.IntVar(&accuracy, "a", 1, "Accuracy; The amount of positives it reports on (not it will increase false positives)")
-	flag.BoolVar(&nameSuggestions, "ns", false, "Name suggestions; if positive suggest a better name for package")
+	flag.IntVar(&accuracy, "a", 1, `Accuracy; The hit rate of errors, (1 is high - 10 low)`)
+	flag.BoolVar(&nameSuggestions, "ns", false, "Name suggestions; If error occurs, suggest a better name for package")
+	flag.Parse()
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		fmt.Println("Error; Input was not a directory or file")
-		printHelp()
+		fmt.Printf("Error; Input was not a directory or file\n\n")
+		flag.PrintDefaults()
 		log.Fatal("Error; Given directory does not exist")
 	}
-	flag.Parse()
 }
 
 func main() {
