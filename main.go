@@ -2,32 +2,14 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/NoahHakansson/gosplat/src/pythonRunner"
 	"github.com/NoahHakansson/gosplat/src/toolParser"
 )
-
-func printHelp() {
-	fmt.Printf("Gosplat v1\n" +
-		" gosplat -h/--help , prints this help text\n" +
-		" gosplat [input dir/file] , runs directory against model\n")
-}
-
-func checkForFlags(args []string) uint8 {
-	if len(args) == 1 {
-		printHelp()
-		return earlyReturn
-	}
-	for _, arg := range args {
-		if arg == "-h" || arg == "--help" {
-			printHelp()
-			return earlyReturn
-		}
-	}
-	return continueProgram
-}
 
 var (
 	pythonPath = os.Getenv("HOME") + "/.local/share/gosplat/src/python_helper/fast_model_compare.py"
@@ -35,27 +17,41 @@ var (
 )
 
 const (
-	earlyReturn     uint8 = 1
-	continueProgram uint8 = 2
+	earlyReturn      uint8 = 1
+	continueProgram  uint8 = 2
+	accuracyOn       uint8 = 3
+	nameSuggestionOn uint8 = 4
 )
 
-func main() {
-	if checkForFlags(os.Args) == earlyReturn {
-		return
-	}
-	dir := os.Args[1]
+// flagValues
+var (
+	dir             string
+	accuracy        int
+	help            bool
+	nameSuggestions bool
+)
+
+func checkForFlags() {
+	flag.StringVar(&dir, "d", ".", "Directory; Dir which analysis starts on")
+	flag.IntVar(&accuracy, "a", 1, `Accuracy; The hit rate of errors, (1 is high - 10 low)`)
+	flag.BoolVar(&nameSuggestions, "ns", false, "Name suggestions; If error occurs, suggest a better name for package")
+	flag.Parse()
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		fmt.Println("Error; Input was not a directory or file")
-		printHelp()
-		return
+		fmt.Printf("Error; Input was not a directory or file\n\n")
+		flag.PrintDefaults()
+		log.Fatal("Error; Given directory does not exist")
 	}
+}
+
+func main() {
+	checkForFlags()
 	toolParser.ParseDir(dir)
 	jsonData, err := toolParser.GenerateInputJSON()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	err = pythonrunner.ExecPythonModel(pythonPath, modelBin, jsonData)
+	err = pythonrunner.ExecPythonModel(pythonPath, modelBin, jsonData, accuracy, nameSuggestions)
 	if err != nil {
 		println("ExecPythonModel; Error;", err.Error())
 	}
