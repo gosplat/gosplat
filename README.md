@@ -20,10 +20,15 @@ Gosplat's and our goals are to create a nice, quick and easy way to analyze poss
 Simply run `install.sh` in the repo directory after cloning it and the rest is done for you
 
 ## Usage
-To use gosplat simply do:
+Usage of gosplat has the structure:
 ```
-gosplat [directory]
+gosplat -d [directory] -ns -a [0 - ...]
 ```
+### Flags
+- `-d` - Overrides the default directory given to gosplat which is current directory
+- `-a` - Sets hitrate or "accuracy" of gosplat's analysis, the lower the higher hitrate on proposed mismatches
+- `-ns` - Turning on naming suggestions if a proposed mismatch from model is accepted as an error
 
 # Big thanks to the people working on gensim
  - If you want to check them out you can do so here: https://radimrehurek.com/gensim/
+ 
