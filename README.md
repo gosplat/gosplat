@@ -29,6 +29,6 @@ gosplat -d [directory] -ns -a [0 - ...]
 - `-a` - Sets hitrate or "accuracy" of gosplat's analysis, the lower the higher hitrate on proposed mismatches
 - `-ns` - Turning on naming suggestions if a proposed mismatch from model is accepted as an error
 
-# Big thanks to the people working on gensim
- - If you want to check them out you can do so here: https://radimrehurek.com/gensim/
+# Shout out to the Gensim library we used
+ - If you want to check it out you can do so here: https://radimrehurek.com/gensim/
  
