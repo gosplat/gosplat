@@ -1,4 +1,4 @@
-# gosplat
+# GOSPLAT
 ## Description
 `(GoLang Static Package Language-model Analysis Tool)`; A tool to analyze packages and functions in GoLang and finding possible improvements to which package functions are placed in.
 
@@ -30,7 +30,9 @@ gosplat -d [directory] -ns -a [0 - ...]
 - `-ns` - Turning on naming suggestions if a proposed mismatch from model is accepted as an error
 
 # Preprocessing/training
-If you want to override the model that's currently available, or further build upon it in training, the preprocessor used to train GOSPLAT's model can be found in https://github.com/Gabriel-Ivarsson/gosplat-preprocessor.
+If you want to override the model that's currently available, or further build upon it in training, the preprocessor used for the data can be found in https://github.com/Gabriel-Ivarsson/gosplat-preprocessor.
+
+The trainer can be found in https://github.com/Gabriel-Ivarsson/gosplat-trainer.
 
 # Shout out to the Gensim library we used
  - If you want to check it out you can do so here: https://radimrehurek.com/gensim/
